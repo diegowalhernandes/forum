@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
 
 {% block body %}
-	<div>
-        <h1>Login</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>Login</h1>
+				{{ form_login.email }}
+				{{ form_login.senha }}
+				{{ form_login.botao_submit_login }}
+			</div>
+			<div class="col">
+				<h1>Cadastre-se</h1>
+				{{ form_criarconta.username }}
+				{{ form_criarconta.senha }}
+				{{ form_criarconta.confirmacao_senha }}
+				{{ form_criarconta.botao_submit_criarconta }}
+			</div>
+			
+		</div>
+        
 
 	</div>
 {% endblock %}
