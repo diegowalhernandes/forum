@@ -1,15 +1,6 @@
-from flask import Flask, render_template, url_for, request, flash, redirect
-from forms import FormLogin, FormCriarConta
-from flask_sqlalchemy import SQLAlchemy
-
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'dcf5c2e692aa78a1e79f7f74a42863eb'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///forum.db'
-
-
-database = SQLAlchemy(app)
+from flask import render_template, redirect, url_for, flash, request
+from forum import app
+from forum.forms import FormLogin, FormCriarConta
 
 @app.route("/")
 def home():
@@ -37,6 +28,3 @@ def login():
         return redirect(url_for('home'))
 
     return render_template('login.html', form_login=form_login, form_criarconta=form_criarconta)
-
-if __name__ == '__main__':
-    app.run(debug=True)
