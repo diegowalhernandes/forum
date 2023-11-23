@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request
-from forum import app, database
+from forum import app, database, bcrypt
 from forum.forms import FormLogin, FormCriarConta
 from forum.models import Usuario
 
@@ -25,7 +25,8 @@ def login():
         return redirect(url_for('home'))
 
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=form_criarconta.senha.data)
+        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data)
+        usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=senha_cript)
         database.session.add(usuario)
         database.session.commit()
         flash(f'Conta criada para o email: {form_criarconta.email.data}', 'alert-success')
