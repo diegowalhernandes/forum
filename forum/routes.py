@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, request
 from forum import app, database, bcrypt
 from forum.forms import FormLogin, FormCriarConta
 from forum.models import Usuario
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 # lista de usuarios
 
@@ -16,6 +16,7 @@ def contato():
     return render_template('contato.html')
 
 @app.route("/usuarios")
+@login_required
 def usuarios():
     return render_template('usuarios.html')
 
@@ -46,6 +47,7 @@ def login():
     return render_template('login.html', form_login=form_login, form_criarconta=form_criarconta)
 
 @app.route('/sair')
+@login_required
 def sair():
     logout_user()
     flash(f'Logout Feito com Sucesso', 'alert-success')
@@ -53,10 +55,12 @@ def sair():
     
 
 @app.route('/perfil')
+@login_required
 def perfil():
     return render_template('perfil.html')
 
 @app.route('/post/criar')
+@login_required
 def criar_post():
     return render_template('criarpost.html')
 

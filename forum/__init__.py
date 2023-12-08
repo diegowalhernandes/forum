@@ -11,6 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///forum.db'
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'alert-info'
 
 
 from forum.models import Usuario 
