@@ -32,7 +32,11 @@ def login():
         if usuario and bcrypt.check_password_hash(usuario.senha, form_login.senha.data):
             login_user(usuario, remember=form_login.lembrar_dados.data)
             flash(f'Login feito com sucessono e-mail: {form_login.email.data}', 'alert-success')
-            return redirect(url_for('home'))
+            param_next = request.args.get('next')
+            if param_next:
+                return redirect(param_next)
+            else:
+                return redirect(url_for('home'))
         else:
             flash(f'Falha no Login. E-mail ou senha Incorreto', 'alert-danger')
 
