@@ -31,7 +31,7 @@ def login():
         usuario = Usuario.query.filter_by(email=form_login.email.data).first()
         if usuario and bcrypt.check_password_hash(usuario.senha, form_login.senha.data):
             login_user(usuario, remember=form_login.lembrar_dados.data)
-            flash(f'Login feito com sucessono e-mail: {form_login.email.data}', 'alert-success')
+            flash(f'Login feito com sucesso e-mail: {form_login.email.data}', 'alert-success')
             param_next = request.args.get('next')
             if param_next:
                 return redirect(param_next)
@@ -69,6 +69,7 @@ def perfil():
 def criar_post():
     return render_template('criarpost.html')
 
+
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
 def editar_perfil():
@@ -77,7 +78,7 @@ def editar_perfil():
         current_user.email = form.email.data
         current_user.username = form.username.data
         database.session.commit()
-        flash('Perfil atuaalizado com sucesso', 'alert-success')
+        flash('Perfil atualizado com sucesso', 'alert-success')
         return redirect(url_for('perfil'))
     elif request.method == "GET":
         form.email.data = current_user.email
