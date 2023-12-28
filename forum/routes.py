@@ -84,6 +84,13 @@ def salvar_imagem(imagem):
     imagem_reduzida.save(caminho_completo)
     return nome_arquivo
 
+def atualizar_skill(form):
+    lista_skill = []
+    for campo in form:
+        if 'skill' in campo.name:
+            lista_skill.append(campo.label.text)
+    return ';'.join(lista_skill)
+
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
 def editar_perfil():
@@ -94,6 +101,7 @@ def editar_perfil():
         if form.foto_perfil.data:
             nome_imagem = salvar_imagem(form.foto_perfil.data)
             current_user.foto_perfil = nome_imagem
+        current_user.skills = atualizar_skill(form)
         database.session.commit()
         flash('Perfil atualizado com sucesso', 'alert-success')
         return redirect(url_for('perfil'))

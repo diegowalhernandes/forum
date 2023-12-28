@@ -29,12 +29,12 @@ class FormEditarPerfil(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()])
     foto_perfil = FileField('Atualizar foto de Perfil', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 
-    language_python = BooleanField('Python')
-    language_java = BooleanField('Java')
-    language_c = BooleanField('C#')
-    language_javascript = BooleanField('JavaScript')
-    language_swift = BooleanField('Swift')
-    language_kotlin = BooleanField('Kotlin')
+    skill_python = BooleanField('Python')
+    skill_java = BooleanField('Java')
+    skill_c = BooleanField('C#')
+    skill_javascript = BooleanField('JavaScript')
+    skill_swift = BooleanField('Swift')
+    skill_kotlin = BooleanField('Kotlin')
 
     botao_submit_editarperfil = SubmitField('Comfirmar Edição')
 

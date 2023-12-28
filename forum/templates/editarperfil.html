@@ -49,7 +49,7 @@
                         <hr>
                         <p>Skills</p>
                         {% for campo in form %}
-                            {% if 'language_' in campo.name %}
+                            {% if 'skill' in campo.name %}
                                 <div class="form-group">
                                     {{ campo(class="form-check-input") }}
                                     {{ campo.label(class="form-check-label") }}
