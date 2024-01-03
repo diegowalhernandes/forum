@@ -101,7 +101,7 @@ def editar_perfil():
         if form.foto_perfil.data:
             nome_imagem = salvar_imagem(form.foto_perfil.data)
             current_user.foto_perfil = nome_imagem
-        current_user.skills = atualizar_skill(form)
+            current_user.skill = atualizar_skill(form)
         database.session.commit()
         flash('Perfil atualizado com sucesso', 'alert-success')
         return redirect(url_for('perfil'))

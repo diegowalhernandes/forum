@@ -14,7 +14,7 @@ class Usuario(database.Model, UserMixin):
     senha = database.Column(database.String, nullable=False)
     foto_perfil = database.Column(database.String, default='default.jpg')
     posts = database.relationship('Post', backref='autor', lazy=True)
-    profissao = database.Column(database.String, nullable=False, default='Não Informado')
+    skill = database.Column(database.String, nullable=False, default='Não Informado')
 
 class Post(database.Model):
     id = database.Column(database.Integer, primary_key=True)

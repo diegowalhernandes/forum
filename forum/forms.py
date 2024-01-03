@@ -43,3 +43,13 @@ class FormEditarPerfil(FlaskForm):
             usuario = Usuario.query.filter_by(email=email.data).first()
             if usuario:
                 raise ValidationError('Já existe um usuário com esse email. Cadastre outro email')
+            
+    def update_skills(self, usuario):
+        # Atualiza as habilidades com base nos campos BooleanField
+        skills = []
+        for field in ['python', 'java', 'c', 'javascript', 'swift', 'kotlin']:
+            if getattr(self, f'skill_{field}').data:
+                skills.append(field)
+        
+        # Atualiza as habilidades do usuário
+        usuario.skill = ';'.join(skills)

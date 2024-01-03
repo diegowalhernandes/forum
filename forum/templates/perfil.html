@@ -8,7 +8,11 @@
                 <div class="ml-3 w-100">
                     <h4 class="mb-0 mt-0">{{ current_user.username }}</h4> <span>{{ current_user.email }}</span>
                     <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                        <div class="d-flex flex-column"> <span class="articles">Cursos</span> <span class="number1">0</span> </div>
+                        {% if 'Não Informado' in current_user.skill %}
+                            <div class="d-flex flex-column"> <span class="articles">Skills</span> <span class="number1">0</span> </div>
+                        {% else %}
+                          <div class="d-flex flex-column"> <span class="articles">Skills</span> <span class="number1">{{ current_user.skill.count(';') + 1}}</span> </div>
+                        {% endif %}
                         <div class="d-flex flex-column"> <span class="rating">Posts</span> <span class="number3">0</span> </div>
                     </div>
                     <div class="button mt-2 d-flex flex-row align-items-center">
@@ -20,6 +24,16 @@
             </div>
         </div>
     </div>
-    {% block form_editar_perfil %}
-    {% endblock form_editar_perfil %}
+
+    <div class="row justify-content-center">
+        <div class="col col-4" style="text-align: center">
+            <strong>Cursos</strong><br>
+            {% for skill in current_user.skill.split(';') %}
+                <button type="button" class="btn btn-success mt-2" disabled>{{ skill }}</button>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% block form_editar_perfil %}
+{% endblock form_editar_perfil %}
 {% endblock %}
