@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from forum import app, database, bcrypt
-from forum.forms import FormLogin, FormCriarConta, FormEditarPerfil
-from forum.models import Usuario
+from forum.forms import FormLogin, FormCriarConta, FormEditarPerfil, FormCriarPost
+from forum.models import Usuario, Post
 from flask_login import login_user, logout_user, current_user, login_required
 import secrets
 import os
@@ -66,10 +66,17 @@ def perfil():
     foto_perfil = url_for('static', filename='fotos_perfil/{}'.format(current_user.foto_perfil))
     return render_template('perfil.html', foto_perfil=foto_perfil)
 
-@app.route('/post/criar')
+@app.route('/post/criar', methods=['GET', 'POST'])
 @login_required
 def criar_post():
-    return render_template('criarpost.html')
+    form = FormCriarPost()
+    if form.validate_on_submit():
+        post = Post(titulo=form.titulo.data, corpo=form.corpo.data, autor=current_user)
+        database.session.add(post)
+        database.session.commit()
+        flash('Post Criando com Sucesso', 'alert-success')
+        return redirect(url_for('home'))
+    return render_template('criarpost.html', form=form)
 
 def salvar_imagem(imagem):
     codigo = secrets.token_hex(8)
@@ -79,7 +86,6 @@ def salvar_imagem(imagem):
     tamanho = (400, 400)
     imagem_reduzida = Image.open(imagem)
     imagem_reduzida.thumbnail(tamanho)
-
     imagem_reduzida.save(caminho_completo)
     return nome_arquivo
 

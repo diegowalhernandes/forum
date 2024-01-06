@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from forum.models import Usuario
 from flask_login import current_user
@@ -53,3 +53,8 @@ class FormEditarPerfil(FlaskForm):
         
         # Atualiza as habilidades do usuário
         usuario.skill = ';'.join(skills)
+
+class FormCriarPost(FlaskForm):
+    titulo = StringField('Titulo do Post', validators=[DataRequired(), Length(2, 140)])
+    corpo = TextAreaField('Escreva seu Post aqui', validators=[DataRequired()])
+    botao_submit = SubmitField('Criar Post')
