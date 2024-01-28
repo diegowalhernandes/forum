@@ -14,7 +14,13 @@
 					</div>
 			</div>
 			<div class="col col-9 post">
-				<h3>{{ post.titulo }}</h3>
+				<h3>{{ post.titulo }}
+				<small class="text-muted" style="font-size: 15px;">- Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}
+				{% if form %}
+					- <a href="#form_editarpost">Editar post</a> / <a href="#" data-bs-toggle="modal" data-bs-target="#excluir_post">>Excluir Post</a>
+				{% endif %}
+				</small>
+				</h3>
 				<h2>{{ post.corpo}}</h2>
 			</div>
 
@@ -27,7 +33,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<form method="POST" action="" class="border p-4 mt-2">
+				<form method="POST" action="" id="form_editarpost" class="border p-4 mt-2">
 					{{ form.csrf_token }}
 					<legend>Editar Post</legend>
 					<fieldset>
@@ -66,4 +72,23 @@
 	</div>
 {% endif %}
 
+
+
+<div class="modal fade" id="excluir_post" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  ...
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 {% endblock %}
