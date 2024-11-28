@@ -5,8 +5,6 @@ from forum.models import Usuario, Post
 from flask_login import login_user, logout_user, current_user, login_required
 import secrets
 import os
-from PIL import Image
-
 
 @app.route("/")
 def home():
